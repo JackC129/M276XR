@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Italiana", sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: 280vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #000;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo img {
+            max-height: 70px;
+            width: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            padding-right: 30px;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li {
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            background-color: transparent;
+        }
+
+        nav ul li .hover-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .section-container .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100vh;
+        }
+
+        .section-container .content {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .section-container .content h1 {
+            font-size: 19vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        .section-container .content p {
+            font-size: 3vw;
+            margin: 0;
+            padding: 0;
+            color: #A7F039;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <header>
+            <div class="logo"><a href="index.html"><img src="Logow.png" alt="Logo"></a></div>
+            <nav>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Project</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="section-container">
+            <div class="content">
+                <h1>ZI JIE CHEN</h1>
+                <p>I am a student in Hunter College majoring in Emerging Media</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        document.querySelectorAll('nav ul li').forEach((li) => {
+            const hoverBg = document.createElement('div');
+            hoverBg.classList.add('hover-bg');
+            li.appendChild(hoverBg);
+
+            li.addEventListener('mouseenter', () => {
+                anime({
+                    targets: hoverBg,
+                    height: ['0%', '100%'],
+                    easing: 'easeOutQuad',
+                    duration: 400,
+                });
+
+                anime({
+                    targets: li.querySelector('a'),
+                    color: ['#fff', '#000'],
+                    easing: 'easeOutQuad',
+                    duration: 400,
+                });
+            });
+
+            li.addEventListener('mouseleave', () => {
+                anime({
+                    targets: hoverBg,
+                    height: ['100%', '0%'],
+                    easing: 'easeOutQuad',
+                    duration: 400,
+                });
+
+                anime({
+                    targets: li.querySelector('a'),
+                    color: ['#000', '#fff'],
+                    easing: 'easeOutQuad',
+                    duration: 400,
+                });
+            });
+        });
+
+        function handleResponsive() {
+            const width = window.innerWidth;
+            const header = document.querySelector("header");
+            const logoImg = document.querySelector(".logo img");
+            const nav = document.querySelector("nav");
+            const contentH = document.querySelector(".content h1");
+            const contentP = document.querySelector(".content p");
+            const projectHeads = document.querySelectorAll(".project-container h1");
+            const projectDescs = document.querySelectorAll(".project-container h2");
+            const projectBtns = document.querySelectorAll(".visit");
+            const galleryImages = document.querySelectorAll(".gallery img");
+
+            if (width <= 480) {
+                header.style.flexDirection = "column";
+                logoImg.style.maxHeight = "40px";
+                nav.style.display = "flex";
+                nav.style.flexDirection = "column";
+                nav.style.alignItems = "center";
+                nav.style.marginTop = "10px";
+                contentH.style.fontSize = "30vw";
+                contentP.style.fontSize = "10vw";
+                projectHeads.forEach(h1 => h1.style.fontSize = "20px");
+                projectDescs.forEach(h2 => h2.style.fontSize = "10px");
+                projectBtns.forEach(btn => {
+                    btn.style.fontSize = "12px";
+                    btn.style.padding = "5px 10px";
+                });
+                galleryImages.forEach(img => img.style.maxWidth = "200px");
+            }
+            else if (width <= 768) {
+                header.style.flexDirection = "row";
+                logoImg.style.maxHeight = "50px";
+                nav.style.flexDirection = "row";
+                nav.style.marginTop = "0";
+                contentH.style.fontSize = "18vw";
+                contentP.style.fontSize = "6vw";
+            }
+            else {
+                header.style.flexDirection = "row";
+                logoImg.style.maxHeight = "70px";
+                nav.style.flexDirection = "row";
+                nav.style.marginTop = "0";
+                contentH.style.fontSize = "";
+                contentP.style.fontSize = "";
+            }
+        }
+        window.addEventListener("resize", handleResponsive);
+        handleResponsive();
+    </script>
+</body>
+
+</html>
